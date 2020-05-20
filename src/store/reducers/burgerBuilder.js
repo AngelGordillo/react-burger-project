@@ -3,7 +3,8 @@ import { updateObject } from '../utility';
 const intialState = {
     ingredients: null,
     totalPrice: 5,
-    error: false
+    error: false,
+    building: false
 }
 const INGREDIENT_PRICES = {
     bacon: 0.5,
@@ -17,7 +18,8 @@ const addIngredient = (state, action) => {
     const updatesIngredients = updateObject(state.ingredients, updatedIngredient);
     const updatedState = {
         ingredients: updatesIngredients,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        building: true
     }
     return updateObject(state, updatedState);
 }
@@ -27,7 +29,8 @@ const removeIngredient = (state, action) => {
     const updatesIngredients = updateObject(state.ingredients, updatedIngredient);
     const updatedState = {
         ingredients: updatesIngredients,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        building: true
     }
     return updateObject(state, updatedState);
 }
@@ -41,7 +44,8 @@ const setIngredient = (state, action) => {
             meat: action.ingredients.meat
         },
         totalPrice: 5,
-        error: false
+        error: false,
+        building: false
     });
 }
 const fetchIngFail = (state, action) => {
@@ -52,17 +56,17 @@ const reducer = (state = intialState, action) => {
         case actionTypes.ADD_ING: return addIngredient(state, action);
         case actionTypes.REMOVE_ING: return removeIngredient(state, action);
         case actionTypes.SET_ING: return setIngredient(state, action)
-        case actionTypes.FETCH_ING_FAILLED:return fetchIngFail(state,action) ;
+        case actionTypes.FETCH_ING_FAILLED: return fetchIngFail(state, action);
         default: return state;
     }
 }
 
-       /* return {
-            ...state,
-            ingredients: {
-                ...state.ingredients,
-                [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-            },
-            totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
-        }; */
+/* return {
+     ...state,
+     ingredients: {
+         ...state.ingredients,
+         [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+     },
+     totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+ }; */
 export default reducer;
