@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../../../components/UI/Button/Button';
+
 import classes from './ContactData.module.css'
 import axios from '../../../axiosOrders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
@@ -101,7 +102,7 @@ class ContactData extends Component {
             price: this.props.price,
             orderData: formData
         }
-        this.props.onOrderBurguer(order);
+        this.props.onOrderBurguer(order,this.props.token);
         console.log(order);
     }
 
@@ -153,7 +154,8 @@ class ContactData extends Component {
 
         let form = (<form onSubmit={this.orderHandler}>
             {formElements.map(el => (
-                <Input elementType={el.config.elementType}
+                <Input
+                    elementType={el.config.elementType}
                     key={el.id}
                     elementConfig={el.config.elementConfig}
                     value={el.config.value}
@@ -181,14 +183,15 @@ const mapStateToProps = (state) => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onOrderBurguer: (orderData) => dispatch(actions.purchaseBurger(orderData))
+        onOrderBurguer: (orderData,token) => dispatch(actions.purchaseBurger(orderData,token))
     }
 
 }
-export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(ContactData, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));

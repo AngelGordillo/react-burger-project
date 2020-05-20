@@ -2,7 +2,6 @@
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-
 }
 
 .Label {
@@ -12,20 +11,22 @@
 }
 
 .InputElement {
-   outline: none;
-   border: 1px solid #ccc;
-   background-color: white;
-   font: inherit;
-   padding: 6px 10px;
-   width: 100%;
-   display: block;
-   box-sizing: border-box;
+    outline: none;
+    border: 1px solid #ccc;
+    background-color: white;
+    font: inherit;
+    padding: 6px 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .InputElement:focus {
     outline: none;
-    background-color: lemonchiffon;
- }
- .Invalid{
-     background-color: red;
- }
+    background-color: #ccc;
+}
+
+.Invalid {
+    border: 1px solid red;
+    background-color: #FDA49A;
+}
